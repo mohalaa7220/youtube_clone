@@ -82,6 +82,8 @@ const Title = styled.h2`
 `;
 
 const Menu = ({ darkMode, setDarkMode }) => {
+  const user = JSON.parse(localStorage.getItem("user"));
+
   return (
     <Container>
       <Wrapper>
@@ -112,16 +114,17 @@ const Menu = ({ darkMode, setDarkMode }) => {
           <HistoryOutlinedIcon />
           History
         </Item>
-        <Hr />
-        <Login>
-          Sign in to like videos, comment, and subscribe.
-          <Link to="signin" style={{textDecoration:"none"}}>
-            <Button>
-              <AccountCircleOutlinedIcon />
-              SIGN IN
-            </Button>
-          </Link>
-        </Login>
+        {user ? null : (
+          <Login>
+            Sign in to like videos, comment, and subscribe.
+            <Link to="signin" style={{ textDecoration: "none" }}>
+              <Button>
+                <AccountCircleOutlinedIcon />
+                SIGN IN
+              </Button>
+            </Link>
+          </Login>
+        )}
         <Hr />
         <Title>BEST OF LAMATUBE</Title>
         <Item>

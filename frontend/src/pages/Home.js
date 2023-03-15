@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Card from "../components/Card";
 import axios from "axios";
+import { baseUrl } from "../utils/apiUrl";
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
@@ -13,16 +14,14 @@ const Home = () => {
 
   useEffect(() => {
     const fetchedVideos = () => {
-      axios
-        .get("http://localhost:9000/api/videos/random")
-        .then((res) => setVideos(res.data));
+      axios.get(`${baseUrl}/videos/random`).then((res) => setVideos(res.data));
     };
     fetchedVideos();
   }, []);
   return (
     <Container>
       {videos.map((video) => (
-        <Card />
+        <Card key={video._id} video={video} />
       ))}
     </Container>
   );

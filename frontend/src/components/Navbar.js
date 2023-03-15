@@ -54,6 +54,7 @@ const Button = styled.button`
   gap: 5px;
 `;
 const Navbar = () => {
+  const user = JSON.parse(localStorage.getItem("user"));
   return (
     <Container>
       <Wrapper>
@@ -61,12 +62,16 @@ const Navbar = () => {
           <Input placeholder="Search" />
           <SearchOutlinedIcon />
         </Search>
-        <Link to="signin" style={{ textDecoration: "none" }}>
-          <Button>
-            <AccountCircleOutlinedIcon />
-            SIGN IN
-          </Button>
-        </Link>
+        {user ? (
+          <span>{user.name}</span>
+        ) : (
+          <Link to="signin" style={{ textDecoration: "none" }}>
+            <Button>
+              <AccountCircleOutlinedIcon />
+              SIGN IN
+            </Button>
+          </Link>
+        )}
       </Wrapper>
     </Container>
   );

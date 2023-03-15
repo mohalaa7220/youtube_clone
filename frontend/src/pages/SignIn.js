@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { login } from "../redux/auth/authSlice";
 
 const Container = styled.div`
   display: flex;
@@ -64,19 +66,61 @@ const Link = styled.span`
 `;
 
 const SignIn = () => {
+  const { loading } = useSelector((state) => state.user);
+
+  const dispatch = useDispatch();
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const Login = async () => {
+    dispatch(login({ email, password }));
+  };
+  const Register = async () => {
+    console.log(name);
+    console.log(password);
+    console.log(email);
+  };
   return (
     <Container>
       <Wrapper>
         <Title>Sign in</Title>
         <SubTitle>to continue to LamaTube</SubTitle>
-        <Input placeholder="username" />
-        <Input type="password" placeholder="password" />
-        <Button>Sign in</Button>
+        <Input
+          type="email"
+          placeholder="Email"
+          name="email"
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <Input
+          type="password"
+          placeholder="password"
+          name="password"
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <Button onClick={Login}>{loading ? "Loading" : "Login"}</Button>
         <Title>or</Title>
-        <Input placeholder="username" />
-        <Input placeholder="email" />
-        <Input type="password" placeholder="password" />
-        <Button>Sign up</Button>
+
+        <Input
+          type="text"
+          placeholder="username"
+          name="username"
+          onChange={(e) => setName(e.target.value)}
+        />
+        <Input
+          type="email"
+          placeholder="email"
+          name="email"
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <Input
+          type="password"
+          placeholder="password"
+          name="password"
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <Button onClick={Register}>Sign up</Button>
       </Wrapper>
       <More>
         English(USA)
